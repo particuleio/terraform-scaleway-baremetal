@@ -1,0 +1,36 @@
+on:
+  # cronjob trigger
+  schedule:
+  - cron:  "0 0 1 * *"
+  # manual trigger
+  workflow_dispatch:
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: actions-template-sync
+        uses: varunsridharan/action-github-workflow-sync@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          PULL_REQUEST: true
+          REPOSITORIES: |
+            particuleio/terraform-scaleway-database
+          WORKFLOW_FILES: |
+            .github/CONTRIBUTING.md
+            .github/renovate.json
+            .github/workflows/pr-title.yaml
+            .github/workflows/pre-commit.yaml
+            .github/workflows/release.yaml
+            .github/workflows/renovate.yaml
+            .github/workflows/stale-actions.yaml
+            .tools-version
+            .releaserc
+            .python-version
+            .mergify.yml
+            .gitignore
+            .pre-commit-config.yaml
+            .terraform-docs.yml
+
