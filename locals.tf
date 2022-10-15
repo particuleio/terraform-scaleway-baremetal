@@ -1,0 +1,3 @@
+locals {
+  servers = var.servers
+}
